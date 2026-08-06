@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>💀 ULTIMATE PRO MAX – 9‑File Editor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>💀 ULTIMATE PRO MAX</h1>
+            <span class="badge">🔥 Owner: @FfbotAll</span>
+        </header>
+        <div class="main">
+            <div class="toolbar-left" id="toolbarLeft">
+                <!-- File -->
+                <div class="tool-group">
+                    <label for="uploadInput" class="btn">📤 Upload</label>
+                    <input type="file" id="uploadInput" accept="image/*" multiple />
+                    <button id="downloadPNG">⬇️ PNG</button>
+                    <button id="downloadJPG">⬇️ JPG</button>
+                    <button id="resetBtn">🔄 Reset</button>
+                </div>
+                <!-- Undo/Redo -->
+                <div class="tool-group">
+                    <button id="undoBtn">↩️ Undo</button>
+                    <button id="redoBtn">↪️ Redo</button>
+                </div>
+                <!-- Transform -->
+                <div class="tool-group">
+                    <button id="cropBtn">✂️ Crop</button>
+                    <button id="rotateLeft">↺ Left</button>
+                    <button id="rotateRight">↻ Right</button>
+                    <button id="flipH">⇔ Flip H</button>
+                    <button id="flipV">⇕ Flip V</button>
+                </div>
+                <!-- Resize & Zoom -->
+                <div class="tool-group">
+                    <span>📐 Resize %</span>
+                    <input type="range" id="resizeSlider" min="10" max="200" value="100" />
+                    <span id="resizeVal">100%</span>
+                </div>
+                <div class="tool-group">
+                    <span>🔍 Zoom</span>
+                    <input type="range" id="zoomSlider" min="50" max="200" value="100" />
+                    <span id="zoomVal">100%</span>
+                </div>
+                <!-- Adjustments -->
+                <div class="tool-group">
+                    <span>☀️ Bright</span>
+                    <input type="range" id="brightnessSlider" min="-100" max="100" value="0" />
+                    <span id="brightnessVal">0</span>
+                </div>
+                <div class="tool-group">
+                    <span>🌓 Contrast</span>
+                    <input type="range" id="contrastSlider" min="-100" max="100" value="0" />
+                    <span id="contrastVal">0</span>
+                </div>
+                <div class="tool-group">
+                    <span>🌈 Saturation</span>
+                    <input type="range" id="saturationSlider" min="-100" max="100" value="0" />
+                    <span id="saturationVal">0</span>
+                </div>
+                <div class="tool-group">
+                    <span>🎨 Hue</span>
+                    <input type="range" id="hueSlider" min="-180" max="180" value="0" />
+                    <span id="hueVal">0</span>
+                </div>
+                <div class="tool-group">
+                    <span>⚙️ Gamma</span>
+                    <input type="range" id="gammaSlider" min="0" max="3" step="0.1" value="1" />
+                    <span id="gammaVal">1</span>
+                </div>
+                <!-- Filters (more) -->
+                <div class="tool-group filter-grid">
+                    <button class="filter-btn" data-filter="sepia">🟫 Sepia</button>
+                    <button class="filter-btn" data-filter="grayscale">⚪ Grayscale</button>
+                    <button class="filter-btn" data-filter="invert">🔃 Invert</button>
+                    <button class="filter-btn" data-filter="emboss">🏛️ Emboss</button>
+                    <button class="filter-btn" data-filter="vintage">📻 Vintage</button>
+                    <button class="filter-btn" data-filter="solarize">☀️ Solarize</button>
+                    <button class="filter-btn" data-filter="posterize">🎨 Posterize</button>
+                    <button class="filter-btn" data-filter="oil">🖌️ Oil</button>
+                    <button class="filter-btn" data-filter="edge">⚡ Edge</button>
+                    <button class="filter-btn" data-filter="glow">✨ Glow</button>
+                    <button class="filter-btn" data-filter="vignette">🌑 Vignette</button>
+                    <button class="filter-btn" data-filter="bloom">🌸 Bloom</button>
+                    <button class="filter-btn" data-filter="pixelate">🔲 Pixelate</button>
+                    <button class="filter-btn" data-filter="noise">📺 Noise</button>
+                    <button class="filter-btn" data-filter="sharpen">🔍 Sharpen</button>
+                    <button class="filter-btn" data-filter="blur">💨 Blur</button>
+                    <button class="filter-btn" data-filter="tint">🎨 Tint</button>
+                    <button class="filter-btn" data-filter="vibrance">🌈 Vibrance</button>
+                </div>
+                <!-- Drawing -->
+                <div class="tool-group">
+                    <span>✏️ Draw</span>
+                    <button id="drawPen">Pen</button>
+                    <button id="drawLine">Line</button>
+                    <button id="drawRect">Rect</button>
+                    <button id="drawCircle">Circle</button>
+                    <button id="drawPolygon">Polygon</button>
+                    <button id="drawStar">Star</button>
+                    <button id="drawArrow">Arrow</button>
+                    <input type="color" id="drawColor" value="#ffffff" />
+                    <span>W</span>
+                    <input type="range" id="drawWidth" min="1" max="20" value="3" style="width:60px;" />
+                    <button id="clearDraw">🧹 Clear</button>
+                </div>
+                <!-- Text -->
+                <div class="tool-group">
+                    <button id="addText">📝 Add Text</button>
+                    <select id="fontFamily">
+                        <option value="Arial">Arial</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Comic Sans MS">Comic Sans</option>
+                        <option value="Impact">Impact</option>
+                    </select>
+                    <input type="number" id="fontSize" value="30" min="10" max="200" style="width:50px;" />
+                    <input type="color" id="fontColor" value="#ffffff" />
+                    <button id="boldBtn"><b>B</b></button>
+                    <button id="italicBtn"><i>I</i></button>
+                    <button id="underlineBtn"><u>U</u></button>
+                    <button id="textStrokeBtn">✒️ Stroke</button>
+                    <button id="textShadowBtn">👻 Shadow</button>
+                    <button id="textBgBtn">📦 BG</button>
+                </div>
+                <!-- Stickers -->
+                <div class="tool-group">
+                    <button id="addEmoji">😎 Sticker</button>
+                </div>
+                <!-- Background -->
+                <div class="tool-group">
+                    <span>Bg Color</span>
+                    <input type="color" id="bgColor" value="#1e1e2e" />
+                </div>
+            </div>
+
+            <div class="canvas-area">
+                <div id="canvas-container"></div>
+                <div class="status" id="status">💀 Ultimate Pro Max loaded. 9‑file modular architecture.</div>
+            </div>
+
+            <div class="layers-panel">
+                <h3>📂 Layers</h3>
+                <div id="layerList"></div>
+                <div class="layer-controls">
+                    <button id="duplicateLayer">📋 Duplicate</button>
+                    <button id="mergeSelected">🔗 Merge Sel</button>
+                    <button id="mergeAll">🔗 Merge All</button>
+                    <button id="deleteLayer">🗑️ Delete</button>
+                    <button id="bringForward">⬆️ Forward</button>
+                    <button id="sendBackward">⬇️ Backward</button>
+                </div>
+                <div class="layer-controls">
+                    <span>Opacity</span>
+                    <input type="range" id="opacitySlider" min="0" max="100" value="100" />
+                    <span id="opacityVal">100%</span>
+                </div>
+                <div class="layer-controls">
+                    <span>Blend</span>
+                    <select id="blendModeSelect">
+                        <option value="normal">Normal</option>
+                        <option value="multiply">Multiply</option>
+                        <option value="screen">Screen</option>
+                        <option value="overlay">Overlay</option>
+                        <option value="darken">Darken</option>
+                        <option value="lighten">Lighten</option>
+                        <option value="color-dodge">Color Dodge</option>
+                        <option value="color-burn">Color Burn</option>
+                        <option value="difference">Difference</option>
+                        <option value="exclusion">Exclusion</option>
+                        <option value="hue">Hue</option>
+                        <option value="saturation">Saturation</option>
+                        <option value="color">Color</option>
+                        <option value="luminosity">Luminosity</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modular Scripts -->
+    <script src="utils.js"></script>
+    <script src="history.js"></script>
+    <script src="layers.js"></script>
+    <script src="filters.js"></script>
+    <script src="tools.js"></script>
+    <script src="export.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
